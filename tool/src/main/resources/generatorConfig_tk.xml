@@ -1,0 +1,41 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 配置文件属性 -->
+    <properties resource="database.properties"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="lombok" value="Getter,Setter,ToString"/>
+        </plugin>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <!-- 实体类 -->
+        <javaModelGenerator targetPackage="com.spring.model"
+                            targetProject="src/main/java"/>
+
+        <!-- mapper.xml文件 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources"/>
+
+        <!-- mapper接口 -->
+        <javaClientGenerator targetPackage="com.spring.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <!-- 数据库哪一张表 -->
+        <table tableName="user_tb"  domainObjectName="User" />
+    </context>
+</generatorConfiguration>
